@@ -25,8 +25,8 @@ until [ $flag -ne  0 ]; do
     [bB] ) printf "Input contact name: "; read name
            printf "Input contact address: "; read address
            printf "Input contact phone#: "; read phone
-           printf "Input contact email: "; read email 
-           if [ . addRecord.sh "$name" "$address" "$phone" "$email" ]; then
+           printf "Input contact email: "; read email
+           if . addRecord.sh "$name" "$address" "$phone" "$email"; then
              printf "Contact successfully added\n"
            else
              printf "Failure adding contact\n"
