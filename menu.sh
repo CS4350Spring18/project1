@@ -17,7 +17,7 @@ until [ $flag -ne  0 ]; do
   echo "Your choice was: $choice"
   case "$choice" in
     [aA] ) printf "Search for Contact with name: "; read name
-           if [ . findRecord.sh "$name" ]; then
+           if . findRecord.sh "$name"; then
              printf "Contact info:\n  Name: $name\n  Address: $address\n  Phone:  $phone\n Email: $email\n"
            else
              printf "Contact not found.\n"
