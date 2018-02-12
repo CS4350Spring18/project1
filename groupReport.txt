@@ -1,0 +1,36 @@
+C. Project Report
+How to Deliver
+A group report is needed to show what you did in the project. Please clearly state the results of
+this project. You are expected to hand in a report as follows:
+a) Submit a hard copy of your group project report on the due day.
+b) Upload your group project report and shell scripts in TRACS. Please tar them into
+one file. You are expected to learn how to use gzip and tar by yourself.
+c) The complete code shall be separated from the report. Only required code can be
+included in the report.
+The format of group project report is
+a) A cover page with names of your group members with font size 12.
+b) Single space and single column.
+c) 5-10 pages (not including the cover page).
+d) The report file should be a PDF file, NOT a WORD file.
+Note: Be sure to include the names of all group members in the report and the code. The report
+and the code should be turned in on the specified due date. Late grade will be deducted
+according to the course policy.
+What to Deliver
+The report should have the following sections.
+Section I (Introduction):
+Clearly state the responsibility of each group member, e.g. who did which task, who wrote which
+part of the report, how your group was coordinated, etc.
+Section II (Task I):
+(1) Describe your design of the database and the text file. List all the fields and explain the
+meaning of each field.
+(2) Show a text-based database file with at least four records.
+Section III (Task II):
+(1) Please describe your design of function and interface. List and explain all functions in your
+database management.
+(2) Use screen shots to describe one operation of update an existing record step by step.
+Section IV (Task III):
+(1) Copy and paste the code for finding a record. Explain this piece of code line by line.
+(2) Use screen shots to illustrate the following three scenarios with queries and results.
+(a) Find only one exactly matching record for a query
+(b) Find multiple matching records for a query
+(c) Find nothing for a query
