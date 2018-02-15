@@ -20,7 +20,6 @@ while read -r line; do
   done
 done < $file
 
-echo $found_results
 export found_results=$found_results
 
 $EXIT_CODE

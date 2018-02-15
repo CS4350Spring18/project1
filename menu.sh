@@ -14,12 +14,23 @@ until [ $flag -ne  0 ]; do
   (f) Quit
   > Selection is : "
 
+
+
   read choice
   echo "Your choice was: $choice"
   case "$choice" in
     [aA] ) printf "Search for Contact with name: "; read name
            if . findRecord.sh "$name"; then
-             printf "Contact info:\n  Name: $name\n  Address: $address\n  Phone:  $phone\n Email: $email\n"
+              IFS=';' read -ra var <<< "$found_results"
+              printf "Contact info:\n"
+              for i in "${var[@]}"; do
+                IFS=':' read -ra line <<< "$i"
+                name="${line[0]}"
+                address="${line[1]}"
+                phone="${line[2]}"
+                email="${line[3]}"
+                printf "Name: $name  Address: $address  Phone:  $phone Email: $email\n"
+              done
            else
              printf "Contact not found.\n"
            fi;;
