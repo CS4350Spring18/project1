@@ -10,7 +10,8 @@ until [ $flag -ne  0 ]; do
   (b) Add a new record
   (c) Update a record
   (d) Remove a record
-  (e) Quit
+  (e) List records
+  (f) Quit
   > Selection is : "
 
   read choice
@@ -25,8 +26,8 @@ until [ $flag -ne  0 ]; do
     [bB] ) printf "Input contact name: "; read name
            printf "Input contact address: "; read address
            printf "Input contact phone#: "; read phone
-           printf "Input contact email: "; read email 
-           if [ . addRecord.sh "$name" "$address" "$phone" "$email" ]; then
+           printf "Input contact email: "; read email
+           if . addRecord.sh "$name" "$address" "$phone" "$email"; then
              printf "Contact successfully added\n"
            else
              printf "Failure adding contact\n"
@@ -46,7 +47,10 @@ until [ $flag -ne  0 ]; do
            else
              printf "Contact not found\n"
            fi;;
-    [eE] ) flag=1;;
+    [eE] ) printf "Listing contacts:\n"
+	    . listRecords.sh
+	    ;;
+    [fF] ) flag=1;;
     * ) printf "Not a valid choice, please try again.\n";;
   esac
 done
