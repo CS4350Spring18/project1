@@ -5,18 +5,22 @@
 file="contacts.data"
 
 EXIT_CODE=false
+found_results=''
 
 while read -r line; do
   IFS=':' read -ra var <<< "$line"
   for i in "${var[@]}"; do
-    if [ "$1" == "$i" ]; then
-      export name="${var[0]}"
-      export address="${var[1]}"
-      export phone="${var[2]}"
-      export email="${var[3]}"
+    if [[ $i == *$1* ]]; then
+      if [[ $found_results != '' ]]; then
+        found_results+=";"
+      fi
+      found_results+="$line"
       EXIT_CODE=true
     fi
   done
 done < $file
+
+echo $found_results
+export found_results=$found_results
 
 $EXIT_CODE
