@@ -4,7 +4,7 @@
 
 NAME=$1
 
-sed -i  "/$NAME/d" contacts.data
+sed -i  "/^$NAME/d" contacts.data
 
 if [ $? ]; then
 	EXIT_CODE=true
