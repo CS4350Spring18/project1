@@ -10,7 +10,8 @@ until [ $flag -ne  0 ]; do
   (b) Add a new record
   (c) Update a record
   (d) Remove a record
-  (e) Quit
+  (e) List records
+  (f) Quit
   > Selection is : "
 
   read choice
@@ -46,7 +47,10 @@ until [ $flag -ne  0 ]; do
            else
              printf "Contact not found\n"
            fi;;
-    [eE] ) flag=1;;
+    [eE] ) printf "Listing contacts:\n"
+	    . listRecords.sh
+	    ;;
+    [fF] ) flag=1;;
     * ) printf "Not a valid choice, please try again.\n";;
   esac
 done
