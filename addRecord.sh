@@ -2,32 +2,34 @@
 # addRecord.sh
 # Michael Scales 2/8/2018
 
-addRecord()
-{
-   name=$1
-   address=$2
-   phone=$3
-   email=$4
-   echo "$name:$address:$phone:$email" >> contacts.data
-   if [ $? ]; then
-      return 0
-   else
-      return 1
-   fi
-}
+# Split the input into each field for the record
+IFS=':' read -r -a array <<< "$1"
+
+# Ensure correct number of arguments were passed
+if [ ${#array[@]} -lt 4 ]; then
+   printf "%s\n" "Too few arguments provided." "Aborting add record."
+   success=false
+else
+   success=true
+   name=${array[0]}
+   address=${array[1]}
+   phone=${array[2]}
+   email=${array[3]}
+fi
+
 # Check that required fields are not blank.
-if [ -z $1 ] || [ -z $4 ]; then
-   printf "%s\n" "" "Error: Name and email are required fields." "You provided:" "Name: $1" \
-                 "Email: $4" "Aborting add record." ""
+if [ "$success" = true ] && [ -z "$name" ] || [ -z "$email" ]; then
+   printf "%s\n" "" "Error: Name and email are required fields." "You provided:" "Name: $name" \
+                 "Email: $email" "Aborting add record." ""
    success=false
 else
    # Enforce unique name and email for records.
-   if . findRecord.sh $1 || . findRecord.sh $4; then
-      printf "%s\n" "" "Duplicate record found:" "Name: $1" "Email: $4" \
+   if . findRecord.sh "$name" || . findRecord.sh "$email"; then
+      printf "%s\n" "" "Duplicate record found:" "Name: $name" "Email: $email" \
                     "Name and email are unique identifiers." "Aborting add record." ""
       success=false
    else
-      addRecord $1 $2 $3 $4
+      echo "$name:$address:$phone:$email" >> contacts.data
       # Verify that our record was successfully added.
       if [ $? ]; then
          sucess=true
