@@ -27,13 +27,13 @@ until [ $flag -ne  0 ]; do
            printf "Input contact address: "; read address
            printf "Input contact phone#: "; read phone
            printf "Input contact email: "; read email
-           if . addRecord.sh "$name" "$address" "$phone" "$email"; then
+           if . addRecord.sh "$name:$address:$phone:$email"; then
              printf "Contact successfully added\n"
            else
              printf "Failure adding contact\n"
            fi;;
     [cC] ) printf "Input name of contact to change: "; read name
-           if [ . findRecord.sh "$name" ]; then
+           if . findRecord.sh "$name"; then
              . removeRecord.sh "$name"
              . addRecord.sh "$name" "$address" "$phone" "$email"
              printf "Update successful\n"
