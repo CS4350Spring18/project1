@@ -41,7 +41,7 @@ until [ $flag -ne  0 ]; do
              printf "Contact not found.\n"
            fi;;
     [dD] ) printf "Input name of contact to remove: "; read name
-           if [ . findRecord.sh "$name" ]; then
+           if  . findRecord.sh "$name" ; then
              . removeRecord.sh "$name"
              printf "Removal successful\n"
            else
