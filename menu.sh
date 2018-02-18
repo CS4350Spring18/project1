@@ -6,7 +6,7 @@
 flag=0
 until [ $flag -ne  0 ]; do
   printf "Welcome to my contact database, please select in the following menu:
-  (a) Find a new record
+  (a) Find a record
   (b) Add a new record
   (c) Update a record
   (d) Remove a record
@@ -44,7 +44,7 @@ until [ $flag -ne  0 ]; do
              printf "Failure adding contact\n"
            fi;;
     [cC] ) printf "Input name of contact to change: "; read name
-           if [ . findRecord.sh "$name" ]; then
+           if . findRecord.sh "$name" ; then
              . removeRecord.sh "$name"
              . addRecord.sh "$name" "$address" "$phone" "$email"
              printf "Update successful\n"
@@ -52,8 +52,11 @@ until [ $flag -ne  0 ]; do
              printf "Contact not found.\n"
            fi;;
     [dD] ) printf "Input name of contact to remove: "; read name
-           if [ . findRecord.sh "$name" ]; then
-             . removeRecord.sh "$name"
+           if . findRecord.sh "$name" ; then
+              IFS=';' read -ra line <<< "$found_results"
+              for i in "${line[@]}"; do
+                . removeRecord.sh "$i"
+              done
              printf "Removal successful\n"
            else
              printf "Contact not found\n"
