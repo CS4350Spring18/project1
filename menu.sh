@@ -19,8 +19,8 @@ until [ $flag -ne  0 ]; do
   read choice
   echo "Your choice was: $choice"
   case "$choice" in
-    [aA] ) printf "Search for Contact with name: "; read name
-           if . findRecord.sh "$name"; then
+    [aA] ) printf "Search for contact with string: "; read search_string
+           if . findRecord.sh "$search_string"; then
               IFS=';' read -ra var <<< "$found_results"
               printf "Contact info:\n"
               for i in "${var[@]}"; do
