@@ -21,14 +21,14 @@ until [ $flag -ne  0 ]; do
   case "$choice" in
     [aA] ) printf "Search for contact with string: "; read search_string
            if . findRecord.sh "$search_string"; then
-              IFS=';' read -ra var <<< "$found_results"
+              IFS=';' read -ra line <<< "$found_results"
               printf "Contact info:\n"
-              for i in "${var[@]}"; do
-                IFS=':' read -ra line <<< "$i"
-                name="${line[0]}"
-                address="${line[1]}"
-                phone="${line[2]}"
-                email="${line[3]}"
+              for i in "${line[@]}"; do
+                IFS=':' read -ra var <<< "$i"
+                name="${var[0]}"
+                address="${var[1]}"
+                phone="${var[2]}"
+                email="${var[3]}"
                 printf "Name: $name  Address: $address  Phone:  $phone Email: $email\n"
               done
            else
@@ -43,14 +43,45 @@ until [ $flag -ne  0 ]; do
            else
              printf "Failure adding contact\n"
            fi;;
-    [cC] ) printf "Input name of contact to change: "; read name
-           if . findRecord.sh "$name" ; then
-             . removeRecord.sh "$name"
-             . addRecord.sh "$name" "$address" "$phone" "$email"
-             printf "Update successful\n"
-           else
-             printf "Contact not found.\n"
-           fi;;
+    [cC] )  . listRecords.sh
+            printf "ID name of contact to update: "; read record_id
+            IFS=';' read -ra line <<< "$all_records"
+            if [[ "$record_id" -ge 1 && "$record_id" -le "${#line[@]}"-1 ]]; then
+              IFS=':' read -ra var <<< "${line["$record_id"]}"
+              name="${var[0]}"
+              address="${var[1]}"
+              phone="${var[2]}"
+              email="${var[3]}"
+              printf "What do you want to update?\n"
+              printf "1. Name\n"
+              printf "2. Address\n"
+              printf "3. Phone\n"
+              printf "4. Email\n"
+              printf "Enter choice: "; read update_choice
+              case "$update_choice" in 
+                [1] ) printf "Enter new name: "; read name
+                  . removeRecord.sh "${line["$record_id"]}"
+                  echo "${line["$record_id"]}"
+                  echo "$name"
+                  . addRecord.sh "$name" "$address" "$phone" "$email"
+                   printf "Update successful\n";;
+                [2] ) printf "Enter new address: "; read address
+                  . removeRecord.sh "${line["$record_id"]}"
+                  . addRecord.sh "$name" "$address" "$phone" "$email"
+                   printf "Update successful\n";;
+                [3] ) printf "Enter new phone: "; read phone
+                  . removeRecord.sh "${line["$record_id"]}"
+                  . addRecord.sh "$name" "$address" "$phone" "$email"
+                   printf "Update successful\n";;
+                [4] ) printf "Enter new email: "; read email
+                  . removeRecord.sh "${line["$record_id"]}"
+                  . addRecord.sh "$name" "$address" "$phone" "$email"
+                   printf "Update successful\n";;
+                * ) printf "Not a valid choice.\n";;
+                esac
+            else
+              printf "Invalid ID\n"
+            fi;;
     [dD] ) printf "Input name of contact to remove: "; read name
            if . findRecord.sh "$name" ; then
               IFS=';' read -ra line <<< "$found_results"
