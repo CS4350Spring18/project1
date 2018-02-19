@@ -38,7 +38,7 @@ until [ $flag -ne  0 ]; do
            printf "Input contact address: "; read address
            printf "Input contact phone#: "; read phone
            printf "Input contact email: "; read email
-           if . addRecord.sh "$name" "$address" "$phone" "$email"; then
+           if . addRecord.sh "$name:$address:$phone:$email"; then
              printf "Contact successfully added\n"
            else
              printf "Failure adding contact\n"
@@ -63,19 +63,19 @@ until [ $flag -ne  0 ]; do
                   . removeRecord.sh "${line["$record_id"]}"
                   echo "${line["$record_id"]}"
                   echo "$name"
-                  . addRecord.sh "$name" "$address" "$phone" "$email"
+                  . addRecord.sh "$name:$address:$phone:$email"
                    printf "Update successful\n";;
                 [2] ) printf "Enter new address: "; read address
                   . removeRecord.sh "${line["$record_id"]}"
-                  . addRecord.sh "$name" "$address" "$phone" "$email"
+                  . addRecord.sh "$name:$address:$phone:$email"
                    printf "Update successful\n";;
                 [3] ) printf "Enter new phone: "; read phone
                   . removeRecord.sh "${line["$record_id"]}"
-                  . addRecord.sh "$name" "$address" "$phone" "$email"
+                  . addRecord.sh "$name:$address:$phone:$email"
                    printf "Update successful\n";;
                 [4] ) printf "Enter new email: "; read email
                   . removeRecord.sh "${line["$record_id"]}"
-                  . addRecord.sh "$name" "$address" "$phone" "$email"
+                  . addRecord.sh "$name:$address:$phone:$email"
                    printf "Update successful\n";;
                 * ) printf "Not a valid choice.\n";;
                 esac
